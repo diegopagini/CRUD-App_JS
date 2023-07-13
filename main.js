@@ -1,9 +1,9 @@
-import './style.css';
-import javascriptLogo from './javascript.svg';
+import "./style.css";
+import javascriptLogo from "./javascript.svg";
 // import { BreakingbadApp } from './src/breakingbad/breakingbad-app';
-import { UsersApp } from './src/users/users-app';
+import { UsersApp } from "./src/users/users-app";
 
-document.querySelector('#app').innerHTML = `
+document.querySelector("#app").innerHTML = `
   <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
@@ -19,7 +19,7 @@ document.querySelector('#app').innerHTML = `
   </div>
 `;
 
-const element = document.querySelector('.card');
+const element = document.querySelector(".card");
 
 // BreakingbadApp( element );
-UsersApp( element );
+UsersApp(element);
