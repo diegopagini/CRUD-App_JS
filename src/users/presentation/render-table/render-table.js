@@ -1,14 +1,17 @@
-import usersStore from "../../store/users-store";
-import { showModal } from "../render-modal/render-modal";
-import { deleteUserById } from "../../use-cases/delete-user-by-id";
-import "./render-table.css";
+/** @format */
+
+import './render-table.css';
+
+import usersStore from '../../store/users-store';
+import { deleteUserById } from '../../use-cases/delete-user-by-id';
+import { showModal } from '../render-modal/render-modal';
 
 let table;
 
 const createTable = () => {
-  const table = document.createElement("table");
-  const tableHeaders = document.createElement("thead");
-  tableHeaders.innerHTML = `
+	const table = document.createElement('table');
+	const tableHeaders = document.createElement('thead');
+	tableHeaders.innerHTML = `
         <tr>
             <th>#ID</th>
             <th>Balance</th>
@@ -19,40 +22,39 @@ const createTable = () => {
         </tr>
     `;
 
-  const tableBody = document.createElement("tbody");
-  table.append(tableHeaders, tableBody);
-  return table;
+	const tableBody = document.createElement('tbody');
+	table.append(tableHeaders, tableBody);
+	return table;
 };
 
 /**
  * @param {MouseEvent} event
  */
 const tableSelectListener = (event) => {
-  const element = event.target.closest(".select-user");
-  if (!element) return;
+	const element = event.target.closest('.select-user');
+	if (!element) return;
 
-  const id = element.getAttribute("data-id");
-  showModal(id);
+	const id = element.getAttribute('data-id');
+	showModal(id);
 };
 
 /**
  * @param {MouseEvent} event
  */
 const tableDeleteListener = async (event) => {
-  const element = event.target.closest(".delete-user");
-  if (!element) return;
+	const element = event.target.closest('.delete-user');
+	if (!element) return;
 
-  const id = element.getAttribute("data-id");
-  try {
-    await deleteUserById(id);
-    await usersStore.reloadPage();
-    document.querySelector("#current-page").innerText =
-      usersStore.getCurrentPage();
-    renderTable();
-  } catch (error) {
-    console.log(error);
-    alert("No se pudo eliminar");
-  }
+	const id = element.getAttribute('data-id');
+	try {
+		await deleteUserById(id);
+		await usersStore.reloadPage();
+		document.querySelector('#current-page').innerText = usersStore.getCurrentPage();
+		renderTable();
+	} catch (error) {
+		console.log(error);
+		alert('No se pudo eliminar');
+	}
 };
 
 /**
@@ -60,19 +62,19 @@ const tableDeleteListener = async (event) => {
  * @param {HTMLDivElement} element
  */
 export const renderTable = (element) => {
-  const users = usersStore.getUsers();
+	const users = usersStore.getUsers();
 
-  if (!table) {
-    table = createTable();
-    element.append(table);
+	if (!table) {
+		table = createTable();
+		element.append(table);
 
-    table.addEventListener("click", tableSelectListener);
-    table.addEventListener("click", tableDeleteListener);
-  }
+		table.addEventListener('click', tableSelectListener);
+		table.addEventListener('click', tableDeleteListener);
+	}
 
-  let tableHTML = "";
-  users.forEach((user) => {
-    tableHTML += `
+	let tableHTML = '';
+	users.forEach((user) => {
+		tableHTML += `
             <tr>
                 <td>${user.id}</td>
                 <td>${user.balance}</td>
@@ -86,7 +88,7 @@ export const renderTable = (element) => {
                 </td>
             </tr>
         `;
-  });
+	});
 
-  table.querySelector("tbody").innerHTML = tableHTML;
+	table.querySelector('tbody').innerHTML = tableHTML;
 };

@@ -1,5 +1,4 @@
 /** @format */
-
 import { User } from '../models/user';
 
 /**
